@@ -1,5 +1,12 @@
 /* WSPR beacon with WM-386 (ESP6288 clone),SI5351, SSD1306 0.91, TinyGSP" 
 
+Version 1.1
+  - Added dloading default values when EEPROM has not ben used before
+  - corrected maidenhead.h library name
+  - improved calibration html page
+  - improved comments
+  - some cosmetic code changes
+
 Verion 1.0
 Modified and improved script from ESP_WSPR sketch from PD0GB and PA3FBX
   - Web interface for configuration panel
@@ -7,19 +14,21 @@ Modified and improved script from ESP_WSPR sketch from PD0GB and PA3FBX
   - SSD1306 info panel texts completely revised
   - Extra debug messages via Serial
   - WSPR interval configurable via the web interface
-  - SI5351 CLK1 fixed at ~10 MHz continuously for stabilization
-  - Warmup period removed and running CLK2 continue with 10MHz
+  - SI5351 CLK2 fixed at 10 MHz continuously for stabilization
+  - Warmup period removed 
   - Cleanup of unused code and variables
   - GPS support on PIO D3 (can conflict during boot / reset)
+  - Read locator from GPS when GPS is enabled
 
-Using a WM-386 (an ESP6288 clone with limited GPIO pins).
+Using a WM-386 (an ESP6288 clone variant).
 With this, we can build a WSPR transmitter with:
-  - Up to 3 bands with LPF switching 
+  - Up to 3 bands with LPF switching (d5, D6, D7)
   - Use the buildin led - D4 PIO for indicating Webinterface active
   - Use a TinyGPS on PIO D3 
-  - Through WiFi sync with NTP and provide a configuration possibility
+  - Time Sync using NTP
+  - Provide a configuration possibility through WiFi accessable webwerver
 
-Time synchronization via WiFi NTP server or optional GPS is selectable
+Time synchronization is selectable via WiFi NTP server or optional GPS.
 
 Hardware: Wemos D1 Mini, Si5351 module, 128x64 I2C OLED display, a few LEDs (optional)  
 
@@ -39,8 +48,10 @@ Log in through your home network to enter the WSPR credetials and parameters:
   - Transmission interval in minutes after start of message or cycle
   - GPS enable/disable
   - Band mask x y z selecting 40 meter, 20 meter, 10 meter or multiple
+  - GPS enable
+  - OLED rotate
   - Reset WiFi - set to 9 to reseter the local WiFi SSID and Password 
-You can also switch the unit into Calibration or Test mode.
+You can also switch the unit into Calibration or Testloop.
 
 
 //Used libraries  
@@ -122,12 +133,9 @@ struct Config {
 } config;
 
 // Common variables
-const char ver[10]        = "ANG-V1.0";
+const char ver[10]        = "ANG-V1.1";
 const char* WiFi_hostname = "ESP-WSPR";
 const char* NTP_Server    = "time.google.com";
-char timeStr[9];
-char dateStr[11];
-
 
 // WSPR and state-machine parameters
 int bandStep = 0;               // waar zitten we in de cycle
@@ -150,7 +158,6 @@ const uint32_t bandFreqs[]   = { band1, band2, band3 };
 static const uint32_t GPSBaud   = 9600;
 int Hour, Minute, Second, Second_oud, Day, Month, Year;
 int Time_set;
-int Sat;
 
 // define hardare / software
 Si5351 si5351;
@@ -709,7 +716,7 @@ void Gps_read()
       Day    = gps.date.day();
       Month  = gps.date.month();
       Year   = gps.date.year();
-      Sat    = gps.satellites.value();
+      int Sat    = gps.satellites.value();
 
       // Zet de ESP systeemtijd
       setTime(Hour, Minute, Second, Day, Month, Year);
@@ -718,10 +725,14 @@ void Gps_read()
       showOLED("CONNECTED", "TO GPS");
       delay(2000);
 
-      Serial.print(F("GPS tijd gezet: ")); Serial.println(timeStr); Serial.print(F("Satellieten: ")); Serial.println(Sat);
+      char buf[60];
+      sprintf(buf, "%02d:%02d:%02d  %02d-%02d-%04d",
+              hour(), minute(), second(),
+              day(), month(), year());
 
-
+      Serial.print(F("GPS tijd gezet : ")); Serial.println(buf); Serial.print(F("Satellieten: ")); Serial.println(Sat);
     }
+
     // Controleer geldige locatie
     if (gps.location.isValid() && Time_set == 1) {
       double lat = gps.location.lat();
