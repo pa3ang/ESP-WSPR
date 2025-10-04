@@ -1,5 +1,15 @@
 /* WSPR beacon with WM-386 (ESP6288 clone),SI5351, SSD1306 0.91, TinyGSP" 
 
+Version 1.2
+  - changed gps/wifi routines 
+    1. if gps is enabled in configuration (default) then program will try to lock and get the time from the gps and update the locator
+          and if the gps is ok the program will create an AP to serve the configuration webpage on host ESP-WSPR IP: 192.168.4.1 
+    2. if no gps or no lock the WiFimanager will try to login to the given SSID network
+          and if done it will run the NTP routine and start a webservers on the assigned local IP address.
+    3. if no network connection established the program will create a captive page on ESP-WSPR 192.168.4.1 to cature the 
+          SSID and password. Therafter it will resync.
+  - changed pin assignments D5 and D7 vor LPF
+
 Version 1.1
   - Added dloading default values when EEPROM has not ben used before
   - corrected maidenhead.h library name
@@ -35,9 +45,9 @@ Hardware: Wemos D1 Mini, Si5351 module, 128x64 I2C OLED display, a few LEDs (opt
 On first startup, if no WiFi credentials are stored, the ESP will switch into Access Point mode.  
 SSID = "WSPR_ConfigAP"  no password.  
 
-Connect your phone/laptop to this network the portal is available at 192.168.4.1  
+Connect your phone/laptop to this network the captive portal is available at 192.168.4.1  
 A configuration page appears after can enter or select the avilable WiFi SSID and enter the password.
-Click ‚ÄúSave‚Äù. The ESP will then connect to your local WiFi.  
+Click ìSaveî. The ESP will then connect to your local WiFi.  
  
 The unit will restat an show the local WiFi IP adress on the SSD1306 screen during booting.
 Log in through your home network to enter the WSPR credetials and parameters:
@@ -67,6 +77,6 @@ EspSoftwareSerial by Dirk Kaar, version 8.1.0
 TinyGPSPlus by Mikal Hart, version 1.0.3  
 Maidenhead by Mateusz Salwach, version 1.0.1  
 
-Version: 2025-10-03
+Version: 2025-10-04
 by Johan, PA3ANG
 https://github.com/pa3ang
