@@ -13,3 +13,5 @@ Futher info will be disclosed when available
 
 vy 73 de Johan, PA3ANG
 https://pa3ang.nl
+
+more info in my weblog https://pa3ang.nl/esp6288-wspr/
