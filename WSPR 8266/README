@@ -1,4 +1,30 @@
-/* WSPR beacon with WM-386 (ESP6288 clone),SI5351, SSD1306 0.91, TinyGSP" 
+// WSPR beacon with WM-386 (ESP6288 clone), SI5351, SSD1306 0.91" or SH1106 1.3", TinyGSP (optional)
+// Original idea from Benno PA3FBX and adapted by PD8GB, PA3FEX and PA3ANG
+
+
+// Below lines are to configure the display and the used PCB.
+// =====================================================================================================================
+
+// ==== SELECT DISPLAY TYPE ====  COMMENT OUT THE USED DISPLAY TYPE COMMENT THE NOT USED
+//#define USE_SH1106     
+#define USE_SSD1306
+
+// ==== SELECT PCB TYPE ====  THE PA3FBX DESIGN HAS 3 LPF DESIGNED. THE PA3FEX PCB HAS THE POSSIBILTY FOR 7 LPF.
+#define USE_PA3FBX_PCB
+//#define USE_PA3FEX_PCB
+// =====================================================================================================================
+
+
+/* 
+Version 1.5
+  - choice of display type between SSD1306 and SH1106.
+  - improved selection of used PCB.
+  - BIAS reintroduced on Pin D8. 
+  - improved interval of transmissions: 
+      Interval given by the user is used to calculate the next transmission after finalizing a complete cycle.
+      If only one band is active this counts also a completing the cycle. 
+      During the cycle no interval is used meaning that all bands are following directly after each other on the next even minute.  
+  - cleanup of some unused code.
 
 Version 1.4
   - changed claibration literals and removed .1 and .01 Hz steps 
@@ -97,4 +123,5 @@ Maidenhead by Mateusz Salwach, version 1.0.1
 Version: 2025-10-04
 by Johan, PA3ANG
 https://github.com/pa3ang
+
 
