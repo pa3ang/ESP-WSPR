@@ -1,4 +1,4 @@
-ESP6288 / WM-386 sketch for WSPR.  Original idea from PA3FBX. 
+ESP8266 / WM-386 sketch for WSPR.  Original idea from PA3FBX. 
 
 Sketch will compile on Arduino IDE and VSC.
 
