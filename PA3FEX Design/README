@@ -1,0 +1,20 @@
+# ESP-WSPR PA3FEX Project
+
+This repository contains PCB and schematic design files.
+
+## License
+Hardware designs in this repository are licensed under:
+
+**CERN Open Hardware Licence v2 – Non-Commercial (CERN-OHL-NC)**
+
+This means:
+- ✔ Personal and educational use is allowed
+- ✔ Modifications are allowed
+- ✖ Commercial use is NOT allowed
+- ✖ Selling boards or derivatives is NOT allowed
+
+For commercial licensing, please contact the author.
+
+## Disclaimer
+This project is provided as-is, without any warranty.
+Use at your own risk.
