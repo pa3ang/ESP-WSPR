@@ -1,0 +1,27 @@
+CERN Open Hardware Licence Version 2 - Non-Commercial (CERN-OHL-NC)
+
+Copyright (c) 2025 Jan Kragt, PA3FEX
+
+This repository contains hardware design files including, but not limited to:
+- PCB layouts
+- Schematics
+- Gerber files
+- Bills of Materials (BOM)
+- Manufacturing outputs
+
+These materials are licensed under the CERN Open Hardware Licence v2 - Non-Commercial.
+
+You may:
+- Study and modify the designs
+- Share the designs with others
+- Manufacture the design for personal or educational use
+
+You may NOT:
+- Use the designs for commercial purposes
+- Sell boards or derived designs
+- Integrate the designs into commercial products
+
+The full license text is available at:
+https://ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-version-2
+
+THE DESIGN IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
