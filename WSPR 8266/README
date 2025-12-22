@@ -16,6 +16,16 @@
 
 
 /* 
+Version 1.7  2025-12-22
+  - made calibration routine available now without rebooting (same as band config) and possibility to cancel out.
+  - improved testloop to cancel out true the webinterface and redirect to / (root).
+  - improved save & reboot in config screen to refresh after 15 seconds to / (root).
+  - random frequency offset -50 to +50 Hz to stay of the center frequency but well within the 200 Hz bandwidth.
+  - commented out the 10MHz stabilization on clk2 as this influences WiFi connectivity.
+
+Version 1.6
+  - added more bands to FEX version 12 in total now 160 - 2 meter
+
 Version 1.5
   - choice of display type between SSD1306 and SH1106.
   - improved selection of used PCB.
@@ -123,5 +133,6 @@ Maidenhead by Mateusz Salwach, version 1.0.1
 Version: 2025-10-04
 by Johan, PA3ANG
 https://github.com/pa3ang
+
 
 
