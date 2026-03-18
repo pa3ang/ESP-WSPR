@@ -15,7 +15,13 @@
 // =====================================================================================================================
 
 
-/* 
+/*
+Version 1.8  2026-03-17
+  - inproved WSPR timing in encode() to sum up to 110.6 seconds exactly
+  - cleanup webserver html generation using generic strings for <head> <style> <footer>
+  - small improvements in web presentation
+  - improved EEPROM integrity for clean start and Easter Egg 
+
 Version 1.7  2025-12-22
   - made calibration routine available now without rebooting (same as band config) and possibility to cancel out.
   - improved testloop to cancel out true the webinterface and redirect to / (root).
